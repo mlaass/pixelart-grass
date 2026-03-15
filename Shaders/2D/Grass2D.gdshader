@@ -7,7 +7,7 @@ shader_type canvas_item;
 // Cloud uniforms declared here as local uniforms for clouds2d.gdshaderinc
 group_uniforms clouds;
 uniform bool cloud_shadows_enabled = true; // Toggle cloud shadow effect
-uniform sampler2D cloud_noise; // Noise for cloud simulation
+uniform sampler2D cloud_noise : repeat_enable; // Noise for cloud simulation
 uniform float cloud_scale = 2000.0; // Scale of cloud noise (pixel-space — ~50x larger than 3D equivalent)
 uniform float cloud_speed = 0.01; // Speed of cloud movement (UV-space scroll rate, matches 3D)
 uniform float cloud_contrast = 3.845; // Steepness of noise pattern
@@ -27,13 +27,13 @@ uniform vec4 albedo1 : source_color = vec4(1.0); // Colour for main grass quad
 uniform vec4 albedo2 : source_color = vec4(1.0); // Colour for grass patch 2
 uniform float albedo2_scale : hint_range(0.0, 1.0, 0.001) = 0.005; // Scale for grass patch 2 noise
 uniform float albedo2_threshold : hint_range(0.0, 1.0, 0.001) = 0.604; // Threshold for grass patch 2 noise
-uniform sampler2D albedo2_noise; // Noise pattern for grass patch 2
+uniform sampler2D albedo2_noise : repeat_enable; // Noise pattern for grass patch 2
 
 	group_uniforms colours_and_textures.albedo3;
 uniform vec4 albedo3 : source_color = vec4(1.0); // Colour for grass patch 3
 uniform float albedo3_scale : hint_range(0.0, 0.1, 0.001) = 0.003; // Scale for grass patch 3 noise
 uniform float albedo3_threshold : hint_range(0.0, 1.0, 0.001) = 0.661; // Threshold for grass patch 3 noise
-uniform sampler2D albedo3_noise; // Noise pattern for grass patch 3
+uniform sampler2D albedo3_noise : repeat_enable; // Noise pattern for grass patch 3
 
 	group_uniforms colours_and_textures.accent1;
 uniform float accent_frequency1 : hint_range(0.0, 0.05, 0.0001) = 0.001; // Frequency of accent grass 1
@@ -61,7 +61,7 @@ uniform bool world_space_sway = true; // Toggle world space sway
 uniform bool debug_noise = false; // Toggle colour debugging for world space sway
 uniform float wind_sway_pixels : hint_range(0.0, 20.0, 0.1) = 5.0; // Maximum pixel offset from wind sway
 uniform float fake_perspective_scale : hint_range(-0.15, 0.6, 0.001) = 0.3; // Intensity of fake perspective effect
-uniform sampler2D wind_noise; // Noise for world space sway
+uniform sampler2D wind_noise : repeat_enable; // Noise for world space sway
 uniform float wind_noise_threshold : hint_range(-1.0, 1.0, 0.001) = 0.365; // Brightness of wind noise (see debug mode)
 uniform float wind_noise_scale : hint_range(0.0, 0.1, 0.001) = 0.071; // Scale of wind noise (see debug mode)
 uniform float wind_noise_speed : hint_range(0.0, 0.2, 0.001) = 0.025; // Speed of wind noise movement (see debug mode)
