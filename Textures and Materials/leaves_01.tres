@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bfsbl7phit5bs"]
+
+[ext_resource type="Texture2D" uid="uid://cl033w2c2pdo7" path="res://Textures and Materials/leaves.png" id="1_qsfat"]
+
+[resource]
+atlas = ExtResource("1_qsfat")
+region = Rect2(1, 23, 18, 18)

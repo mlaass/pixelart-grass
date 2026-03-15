@@ -18,44 +18,44 @@ var waiting: bool = false
 var wait_timer: float = 0.0
 
 func _ready():
-	set_physics_process(true)
-	pick_new_target()
+  set_physics_process(true)
+  pick_new_target()
 
 func _physics_process(delta):
-	if waiting:
-		wait_timer -= delta
-		if wait_timer <= 0.0:
-			waiting = false
-			pick_new_target()
-		return
-	
-	move_towards_target(delta)
+  if waiting:
+    wait_timer -= delta
+    if wait_timer <= 0.0:
+      waiting = false
+      pick_new_target()
+    return
+  
+  move_towards_target(delta)
 
 func move_towards_target(delta):
-	var to_target = target_position - global_position
-	to_target.y = 0.0
-	
-	var distance = to_target.length()
-	if distance < 0.1:
-		velocity = Vector3.ZERO
-		waiting = true
-		wait_timer = wait_time
-		return
-	
-	var move_dir = to_target.normalized()
-	
-	# Slow on arrival
-	var slow_radius = 2.0
-	var speed_scale = clamp(distance / slow_radius, 0.0, 1.0)
-	
-	var target_velocity = move_dir * speed * speed_scale
-	velocity = velocity.move_toward(target_velocity, acceleration * delta)
-	
-	move_and_slide()
+  var to_target = target_position - global_position
+  to_target.y = 0.0
+  
+  var distance = to_target.length()
+  if distance < 0.1:
+    velocity = Vector3.ZERO
+    waiting = true
+    wait_timer = wait_time
+    return
+  
+  var move_dir = to_target.normalized()
+  
+  # Slow on arrival
+  var slow_radius = 2.0
+  var speed_scale = clamp(distance / slow_radius, 0.0, 1.0)
+  
+  var target_velocity = move_dir * speed * speed_scale
+  velocity = velocity.move_toward(target_velocity, acceleration * delta)
+  
+  move_and_slide()
 
 
 func pick_new_target():
-	target_position = get_random_visible_ground_point()
+  target_position = get_random_visible_ground_point()
 
 # Get a random point in the bottom half of the camera's view
 func get_random_visible_ground_point() -> Vector3:

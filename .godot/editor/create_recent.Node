@@ -1,10 +1,10 @@
+Sprite2D
 Node3D
 BoneAttachment3D
 MeshInstance3D
 OmniLight3D
 Node
 CharacterBody3D
-Sprite2D
 Control
 SubViewport
 WorldEnvironment

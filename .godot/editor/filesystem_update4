@@ -1,0 +1,8 @@
+res://Scenes/Demo2D.tscn
+res://Shaders/clouds.gdshaderinc
+res://Shaders/Floor.gdshader
+res://Textures and Materials/Albedo2Noise.tres
+res://Shaders/Grass.gdshader
+res://Textures and Materials/Albedo3Noise.tres
+res://Shaders/ToonShader.gdshader
+res://Shaders/Outline.gdshader
