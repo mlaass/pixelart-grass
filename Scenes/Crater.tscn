@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3]
+
+[ext_resource type="Script" path="res://Scripts/2D/Crater2D.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://k7agtndfubt0" path="res://Textures and Materials/crater.png" id="2_crater"]
+[ext_resource type="Texture2D" uid="uid://bpdleacpebxld" path="res://Textures and Materials/crater_gras_mask.png" id="3_mask"]
+[ext_resource type="Script" uid="uid://c3ydxtjmkdtrc" path="res://Scripts/2D/GrassEffector2D.gd" id="4_effector"]
+
+[node name="Crater" type="Node2D"]
+z_index = -1
+script = ExtResource("1_script")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_crater")
+
+[node name="GrassEffector2D" type="Node2D" parent="."]
+script = ExtResource("4_effector")
+effect_texture = ExtResource("3_mask")
+effect_radius = 24.0
+blend_mode = 2

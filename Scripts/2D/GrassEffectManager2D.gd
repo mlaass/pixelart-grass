@@ -119,6 +119,7 @@ func _process(_delta: float) -> void:
     var source: Node2D = entry.source
     var mirror: Sprite2D = entry.mirror
     mirror.position = source.global_position
+    mirror.modulate = source.modulate
     if "effect_radius" in source:
       var radius: float = source.effect_radius
       _apply_scale(mirror, entry.tex_size, radius)
