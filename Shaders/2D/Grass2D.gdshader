@@ -67,11 +67,6 @@ uniform float wind_noise_scale : hint_range(0.0, 0.1, 0.001) = 0.071; // Scale o
 uniform float wind_noise_speed : hint_range(0.0, 0.2, 0.001) = 0.025; // Speed of wind noise movement (see debug mode)
 uniform vec2 wind_noise_direction = vec2(0.0, 1.0); // Worldspace xy direction of wind (see debug mode)
 uniform float noise_diverge_angle : hint_range(0.0, 45.0, 0.001) = 10.0; // Angle at which the two noises split from each other
-	group_uniforms animation.view_space;
-uniform bool view_space_sway = true; // Toggle viewspace oscillation
-uniform float view_sway_speed : hint_range(0.0, 5.0) = 0.1; // Speed of swaying in cycles per second
-uniform float view_sway_pixels : hint_range(0.0, 10.0, 0.1) = 2.0; // Maximum pixel offset from view sway
-
 group_uniforms displacement;
 uniform bool displacement_enabled = false;
 uniform bool debug_disable_mask = false;
@@ -162,12 +157,6 @@ void vertex() {
 	// World-space wind sway (2D adaptation — pixel offset instead of rotation)
 	if (world_space_sway) {
 		VERTEX.x += wind_noise_sample * wind_sway_pixels * height_factor;
-	}
-
-	// View-space oscillation (2D adaptation — pixel offset instead of rotation)
-	if (view_space_sway) {
-		float model_sway = sin((time + seed) * view_sway_speed * 2.0 * PI) * view_sway_pixels;
-		VERTEX.x += model_sway * height_factor;
 	}
 
 	// Character displacement via terrain data texture
