@@ -29,10 +29,6 @@ window/stretch/aspect="keep_height"
 
 enabled=PackedStringArray("res://addons/flowerwall_crt/plugin.cfg")
 
-[global_group]
-
-characters=""
-
 [input]
 
 move_left={
@@ -61,50 +57,4 @@ move_down={
 textures/canvas_textures/default_texture_filter=0
 renderer/rendering_method="gl_compatibility"
 renderer/rendering_method.mobile="gl_compatibility"
-lights_and_shadows/directional_shadow/size=16384
-lights_and_shadows/directional_shadow/soft_shadow_filter_quality=0
-lights_and_shadows/positional_shadow/soft_shadow_filter_quality=0
-lights_and_shadows/positional_shadow/atlas_size=16384
 
-[shader_globals]
-
-cloud_contrast={
-"type": "float",
-"value": 0.0
-}
-cloud_scale={
-"type": "float",
-"value": 0.0
-}
-cloud_speed={
-"type": "float",
-"value": 0.0
-}
-cloud_threshold={
-"type": "float",
-"value": 0.0
-}
-cloud_world_y={
-"type": "float",
-"value": 0.0
-}
-cloud_noise={
-"type": "sampler2D",
-"value": "res://Textures and Materials/Cloud_Noise.tres"
-}
-cloud_direction={
-"type": "vec2",
-"value": Vector2(0, 0)
-}
-light_direction={
-"type": "vec3",
-"value": Vector3(0, 0, 0)
-}
-cloud_shadow_min={
-"type": "float",
-"value": 0.2
-}
-cloud_diverge_angle={
-"type": "float",
-"value": 10.0
-}
