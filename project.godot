@@ -14,10 +14,20 @@ config/name="Grass"
 run/main_scene="uid://krvyyr20xseg"
 config/features=PackedStringArray("4.5", "Forward Plus")
 
+[autoload]
+
+flowerwall_crt="*res://addons/flowerwall_crt/scenes/flowerwall_crt.tscn"
+
 [display]
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/stretch/mode="canvas_items"
+window/stretch/aspect="keep_height"
+
+[editor_plugins]
+
+enabled=PackedStringArray("res://addons/flowerwall_crt/plugin.cfg")
 
 [global_group]
 
