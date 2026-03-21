@@ -43,6 +43,15 @@ All shaders share cloud shadow logic via `Shaders/clouds.gdshaderinc` (included 
 - All scripts run as `@tool` for editor preview
 - Shaders use `group_uniforms` for organized inspector UI
 
+### GDScript Typing Rules
+
+This project treats the "inferred Variant type" warning as a **parse error**. Never use `:=` when the right-hand side returns `Variant`. Common pitfalls:
+
+- `Array.pop_back()`, `Array.pop_front()`, `Array.back()`, `Array.front()` — always return `Variant` even on typed arrays. Use explicit type: `var x: int = arr.pop_back()`
+- `Dictionary[key]` — returns `Variant`. Use explicit type: `var x: MyType = dict[key]`
+- `for x in [1.0, 2.0]:` — untyped array literals make `x` Variant. Use a typed array: `var arr: Array[float] = [1.0, 2.0]` then `for x in arr:`
+- `for key in dict:` / `for key in dict.keys():` — `key` is Variant. Acceptable for iteration but don't use `:=` on expressions derived from it without an explicit type annotation.
+
 ## Licensing
 
 Code (scripts/shaders): MIT. Art assets: CC BY 4.0 (credit "by Dylearn"). Waterfowl logo: all rights reserved.

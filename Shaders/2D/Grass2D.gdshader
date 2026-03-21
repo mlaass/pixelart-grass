@@ -74,7 +74,7 @@ uniform float view_sway_pixels : hint_range(0.0, 10.0, 0.1) = 2.0; // Maximum pi
 
 group_uniforms displacement;
 uniform bool displacement_enabled = false;
-uniform sampler2D terrain_data_texture : repeat_enable;
+uniform sampler2D terrain_data_texture;
 uniform vec4 terrain_bounds;
 uniform float displacement_pixels : hint_range(0.0, 30.0, 0.1) = 12.0;
 uniform float displacement_y_factor : hint_range(0.0, 1.0, 0.01) = 0.3;

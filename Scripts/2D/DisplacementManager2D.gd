@@ -4,32 +4,35 @@
 # Manages a SubViewport that renders displacement sprites for each
 # GrassDisplacer2D node, then binds the resulting texture to the grass
 # shader so blades shear away from nearby displacers.
+# The viewport follows the game camera so displacement works at any
+# camera position without covering the entire map.
 
 @tool
 extends Node
 
-@export var grass_spawner: MultiMeshInstance2D
+@export var chunk_manager: Node
+@export var camera: Camera2D
 @export var viewport_resolution: Vector2i = Vector2i(512, 512)
-@export var bounds_padding: float = 96.0
+@export var displacement_buffer: float = 128.0
 
 const DEFAULT_SPRITE_SIZE := 64
 
 var _viewport: SubViewport
+var _internal_cam: Camera2D
 var _mirror_sprites: Array[Dictionary] = []
 var _gradient_shader: Shader
 var _default_texture: PlaceholderTexture2D
 var _additive_mat: CanvasItemMaterial
-var _bounds: Rect2
+var _grass_material: ShaderMaterial
 
 
 func _ready() -> void:
-	if not grass_spawner:
+	if not chunk_manager or not "grass_material" in chunk_manager:
 		return
-	if not "tile_map" in grass_spawner or not grass_spawner.tile_map:
+	_grass_material = chunk_manager.grass_material
+	if not _grass_material:
 		return
-
-	_bounds = _compute_grass_bounds()
-	if _bounds.size.x <= 0.0 or _bounds.size.y <= 0.0:
+	if not camera:
 		return
 
 	# Create SubViewport
@@ -39,11 +42,9 @@ func _ready() -> void:
 	_viewport.render_target_update_mode = SubViewport.UPDATE_ALWAYS
 	add_child(_viewport)
 
-	# Camera2D covering the grass bounds
-	var cam := Camera2D.new()
-	cam.position = _bounds.get_center()
-	cam.zoom = Vector2(_viewport.size) / _bounds.size
-	_viewport.add_child(cam)
+	# Camera2D — positioned dynamically in _process()
+	_internal_cam = Camera2D.new()
+	_viewport.add_child(_internal_cam)
 
 	# Additive blend material for custom-texture displacers
 	_additive_mat = CanvasItemMaterial.new()
@@ -65,18 +66,31 @@ func _ready() -> void:
 	await get_tree().process_frame
 
 	# Bind viewport texture to grass material
-	var mat := grass_spawner.material as ShaderMaterial
-	if not mat:
-		return
-	mat.set_shader_parameter("terrain_data_texture", _viewport.get_texture())
-	mat.set_shader_parameter("terrain_bounds", Vector4(
-		_bounds.position.x, _bounds.position.y,
-		_bounds.end.x, _bounds.end.y
-	))
-	mat.set_shader_parameter("displacement_enabled", true)
+	_grass_material.set_shader_parameter("terrain_data_texture", _viewport.get_texture())
+	_grass_material.set_shader_parameter("displacement_enabled", true)
 
 
 func _process(_delta: float) -> void:
+	if not camera or not _internal_cam or not _grass_material:
+		return
+
+	# Compute world-space coverage for the displacement viewport
+	var viewport_size := get_viewport().get_visible_rect().size
+	var world_size := viewport_size / camera.zoom + Vector2(displacement_buffer * 2.0, displacement_buffer * 2.0)
+
+	# Track game camera
+	_internal_cam.position = camera.global_position
+	_internal_cam.zoom = Vector2(viewport_resolution) / world_size
+
+	# Update terrain_bounds uniform so the shader computes correct UVs
+	var half_world := world_size / 2.0
+	var bounds_min := camera.global_position - half_world
+	var bounds_max := camera.global_position + half_world
+	_grass_material.set_shader_parameter("terrain_bounds", Vector4(
+		bounds_min.x, bounds_min.y, bounds_max.x, bounds_max.y
+	))
+
+	# Sync mirror sprite positions
 	for entry in _mirror_sprites:
 		var source: Node2D = entry.source
 		var mirror: Sprite2D = entry.mirror
@@ -115,20 +129,3 @@ func _add_mirror(displacer: Node) -> void:
 
 func _apply_scale(mirror: Sprite2D, tex_size: float, radius: float) -> void:
 	mirror.scale = Vector2.ONE * radius / (tex_size / 2.0)
-
-
-func _compute_grass_bounds() -> Rect2:
-	var tile_map: TileMapLayer = grass_spawner.tile_map
-	var cells := tile_map.get_used_cells()
-	if cells.is_empty():
-		return Rect2()
-	var min_pos := Vector2(INF, INF)
-	var max_pos := Vector2(-INF, -INF)
-	for cell in cells:
-		var world_pos := tile_map.map_to_local(cell)
-		min_pos = min_pos.min(world_pos)
-		max_pos = max_pos.max(world_pos)
-	var tile_size := Vector2(tile_map.tile_set.tile_size)
-	min_pos -= tile_size / 2.0 + Vector2(bounds_padding, bounds_padding)
-	max_pos += tile_size / 2.0 + Vector2(bounds_padding, bounds_padding)
-	return Rect2(min_pos, max_pos - min_pos)
