@@ -376,9 +376,13 @@ func _precompute_chunk_mask(chunk: ChunkData) -> void:
       var nav_verts := nav_poly.get_vertices()
       for poly_idx in nav_poly.get_polygon_count():
         var indices := nav_poly.get_polygon(poly_idx)
+        var poly_points := PackedVector2Array()
         for idx_i in indices.size():
           var vi: int = indices[idx_i]
-          verts.append((nav_verts[vi] + world_pos).round())
+          poly_points.append((nav_verts[vi] + world_pos).round())
+        var tri_indices := Geometry2D.triangulate_polygon(poly_points)
+        for ti in tri_indices.size():
+          verts.append(poly_points[tri_indices[ti]])
     else:
       # Snap full-tile quad vertices to integer pixel positions
       var tl := (world_pos + Vector2(-half_tile.x, -half_tile.y)).round()

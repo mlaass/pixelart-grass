@@ -103,6 +103,10 @@ Add a `CanvasLayer` with a `ColorRect` child. Attach `CloudOverlay2D.gd` to the 
 - The included `cloud_overlay_material.tres` as the material
 - References to your camera and effect manager
 
+### 6. Add a CRT post-process shader (recommended)
+
+The pixel-art grass looks best with a CRT or retro post-processing shader on top. The example project includes the [Flowerwall CRT shader](https://github.com/Flowerwall-Studio/flowerwall-crt) for this purpose. Any CRT/scanline shader will work — it helps blend the pixel-art aesthetic and hides sub-pixel seams.
+
 ---
 
 ## Example Scene
