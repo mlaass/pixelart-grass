@@ -1,0 +1,7 @@
+[gd_resource type="AtlasTexture" load_steps=2 format=3 uid="uid://bkrkawwtxd2t"]
+
+[ext_resource type="Texture2D" uid="uid://cl033w2c2pdo7" path="res://addons/dynamic_2d_grass/textures/leaves.png" id="1_k6vvp"]
+
+[resource]
+atlas = ExtResource("1_k6vvp")
+region = Rect2(86, 23, 18, 18)

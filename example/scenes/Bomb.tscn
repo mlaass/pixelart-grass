@@ -1,0 +1,49 @@
+[gd_scene load_steps=9 format=3 uid="uid://dyxc1w1o0v2f4"]
+
+[ext_resource type="Script" uid="uid://bal5pmv50mu7b" path="res://example/scripts/Bomb2D.gd" id="1_script"]
+[ext_resource type="Texture2D" uid="uid://1whys5ugwd80" path="res://example/textures/bomb.png" id="2_bomb"]
+[ext_resource type="Texture2D" uid="uid://digln23j5j4gw" path="res://example/textures/bomb_shadow.png" id="2_fipud"]
+[ext_resource type="Texture2D" uid="uid://cynwdxmamfira" path="res://example/textures/displace.png" id="3_tgol1"]
+[ext_resource type="Script" uid="uid://c3ydxtjmkdtrc" path="res://addons/dynamic_2d_grass/scripts/GrassEffector2D.gd" id="4_qlp3o"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ocj7c"]
+atlas = ExtResource("2_bomb")
+region = Rect2(0, 0, 16, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gjna8"]
+atlas = ExtResource("2_bomb")
+region = Rect2(16, 0, 16, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_tgol1"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ocj7c")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gjna8")
+}],
+"loop": true,
+"name": &"default",
+"speed": 8.0
+}]
+
+[node name="Bomb" type="Node2D"]
+script = ExtResource("1_script")
+
+[node name="Shadow" type="Sprite2D" parent="."]
+position = Vector2(0, 6)
+texture = ExtResource("2_fipud")
+
+[node name="Displace" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(1.499999, 3.5)
+scale = Vector2(1.6875, 1.0625)
+texture = ExtResource("3_tgol1")
+script = ExtResource("4_qlp3o")
+
+[node name="BombAnim" type="AnimatedSprite2D" parent="."]
+unique_name_in_owner = true
+position = Vector2(1, -2)
+sprite_frames = SubResource("SpriteFrames_tgol1")
+autoplay = "default"

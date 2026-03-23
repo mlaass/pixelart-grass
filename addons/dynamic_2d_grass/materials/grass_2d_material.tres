@@ -1,0 +1,52 @@
+[gd_resource type="ShaderMaterial" load_steps=6 format=3 uid="uid://t07xl7qay06s"]
+
+[ext_resource type="Shader" uid="uid://c16p6csvftwt8" path="res://addons/dynamic_2d_grass/shaders/Grass2D.gdshader" id="1_shader"]
+[ext_resource type="Texture2D" uid="uid://cl033w2c2pdo7" path="res://addons/dynamic_2d_grass/textures/leaves.png" id="3_leaves"]
+[ext_resource type="Texture2D" uid="uid://b6fhxncxd7b1t" path="res://addons/dynamic_2d_grass/noise/WindNoise.tres" id="4_wind"]
+[ext_resource type="Texture2D" uid="uid://vqml4pj02ucs" path="res://addons/dynamic_2d_grass/noise/Albedo2Noise.tres" id="5_albedo2"]
+[ext_resource type="Texture2D" uid="uid://c52v6tkx73uro" path="res://addons/dynamic_2d_grass/noise/Albedo3Noise.tres" id="6_albedo3"]
+
+[resource]
+shader = ExtResource("1_shader")
+shader_parameter/albedo_texture = ExtResource("3_leaves")
+shader_parameter/albedo_texture_region = Vector4(86, 23, 18, 18)
+shader_parameter/albedo1 = Color(0.85, 1, 0.47, 1)
+shader_parameter/albedo2 = Color(0.67, 0.88, 0.11, 1)
+shader_parameter/albedo2_scale = 0.005
+shader_parameter/albedo2_threshold = 0.604
+shader_parameter/albedo2_noise = ExtResource("5_albedo2")
+shader_parameter/albedo3 = Color(0.41, 0.53, 0.18, 1)
+shader_parameter/albedo3_scale = 0.0690000032775
+shader_parameter/albedo3_threshold = 0.6530000310175
+shader_parameter/albedo3_noise = ExtResource("6_albedo3")
+shader_parameter/accent_frequency1 = 0.001
+shader_parameter/accent_texture1 = ExtResource("3_leaves")
+shader_parameter/accent_texture1_region = Vector4(61, 23, 18, 18)
+shader_parameter/accent_albedo1 = Color(0.58, 0.79, 0.14, 1)
+shader_parameter/accent_height1 = 0.5
+shader_parameter/accent_scale1 = 1.0
+shader_parameter/accent_probability2 = 0.1
+shader_parameter/accent_texture2 = ExtResource("3_leaves")
+shader_parameter/accent_texture2_region = Vector4(86, 23, 18, 18)
+shader_parameter/accent_albedo2 = Color(0.31, 0.44, 0.06, 1)
+shader_parameter/accent_height2 = 0.5
+shader_parameter/accent_scale2 = 1.0
+shader_parameter/framerate = 12.0
+shader_parameter/quantised = true
+shader_parameter/world_scale = 96.0
+shader_parameter/world_space_sway = true
+shader_parameter/debug_noise = false
+shader_parameter/wind_sway_pixels = 5.0
+shader_parameter/fake_perspective_scale = 0.3
+shader_parameter/wind_noise = ExtResource("4_wind")
+shader_parameter/wind_noise_threshold = 0.2730000604675
+shader_parameter/wind_noise_scale = 0.0290000013775
+shader_parameter/wind_noise_speed = 0.025
+shader_parameter/wind_noise_direction = Vector2(0, 1)
+shader_parameter/noise_diverge_angle = 7.5950003607625
+shader_parameter/displacement_enabled = true
+shader_parameter/debug_disable_mask = false
+shader_parameter/debug_disable_density = false
+shader_parameter/terrain_bounds = Vector4(-724.5, -559.5, 724.5, 559.5)
+shader_parameter/displacement_pixels = 12.0
+shader_parameter/displacement_y_factor = 0.3
