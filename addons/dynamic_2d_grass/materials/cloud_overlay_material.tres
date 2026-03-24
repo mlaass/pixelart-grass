@@ -12,7 +12,7 @@ colors = PackedColorArray(0.03199998, 0.008000001, 0.08, 1, 0.290075, 0.25010002
 gradient = SubResource("Gradient_d8uyc")
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_ful12"]
-viewport_path = NodePath("GrassEffectManager2D/@SubViewport@26285")
+viewport_path = NodePath("GrassEffectManager2D/@SubViewport@21024")
 
 [resource]
 shader = ExtResource("1_shader")
@@ -31,9 +31,9 @@ shader_parameter/cloud_shadow_min = 0.2
 shader_parameter/cloud_diverge_angle = 45.0
 shader_parameter/cloud_parallax = 1.2000001668934406
 shader_parameter/camera_position = Vector2(0, 0)
-shader_parameter/camera_zoom = Vector2(1, 1)
+shader_parameter/camera_zoom = Vector2(4, 4)
 shader_parameter/viewport_size = Vector2(1043, 457)
 shader_parameter/debug_terrain = false
 shader_parameter/terrain_data_texture = SubResource("ViewportTexture_ful12")
-shader_parameter/terrain_bounds = Vector4(-812, -436.5, 812, 436.5)
+shader_parameter/terrain_bounds = Vector4(-129, -129, 129, 129)
 shader_parameter/cloud_y_offset_scale = 50.0

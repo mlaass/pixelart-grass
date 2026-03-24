@@ -427,8 +427,11 @@ region = Rect2(0, 0, 100, 100)
 [node name="Demo2D" type="Node2D"]
 
 [node name="Camera2D" type="Camera2D" parent="." node_paths=PackedStringArray("target")]
+position = Vector2(187, 116)
+zoom = Vector2(4, 4)
 script = ExtResource("16_zeldacam")
 target = NodePath("../Node2D/Soldier")
+max_zoom = 8.0
 
 [node name="TileMapLayer" type="TileMapLayer" parent="."]
 z_index = -2
@@ -491,6 +494,18 @@ script = ExtResource("12_dispmgr")
 chunk_manager = NodePath("../GrassChunkManager2D")
 camera = NodePath("../Camera2D")
 grass_nav_layer = 9
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+custom_minimum_size = Vector2(200, 100)
+offset_left = 53.0
+offset_top = 32.0
+offset_right = 253.0
+offset_bottom = 132.0
+theme_override_colors/font_shadow_color = Color(0, 0, 0, 0.76862746)
+bbcode_enabled = true
+text = "[b]WASD [/b] -  move
+[b]SPACE [/b] -  drop bombs
+[b]mousewheel [/b] -  zoom"
 
 [node name="CloudOverlay" type="CanvasLayer" parent="."]
 
